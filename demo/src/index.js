@@ -140,6 +140,7 @@ function Demo() {
 
     const colorRef = React.useRef("");
     const frSwitch = React.useRef(null);
+    const frOnlySwitch = React.useRef(null)
     const classes = useStyles();
 
     const n = React.useRef(null);
@@ -185,7 +186,11 @@ function Demo() {
     };
 
     const handleClick = () => {
-        fetch("http://localhost:8097/nextrule").then((res) => {
+        let url = "http://localhost:8097/nextrule"
+        if (frOnlySwitch.current.checked){
+            url = "http://localhost:8097/nextrule?fronly=1"
+        }
+        fetch(url).then((res) => {
             if (res.status == 204) {
             } else if (res.status == 200) {
                 res.json().then((data) => {
@@ -625,6 +630,12 @@ function Demo() {
                             <Button onClick={handleClick}>Next</Button>
                             <Button onClick={handleUpdate}>Update</Button>
                         </ButtonGroup>
+                        <FormGroup>
+                            <FormControlLabel
+                                control={<Switch inputRef={frOnlySwitch} />}
+                                label="only show frontier"
+                            />
+                        </FormGroup>
                     </CardContent>
                 </Card>
 
