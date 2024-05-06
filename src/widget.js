@@ -57,9 +57,10 @@ const Widget = ({ nodes, edges, ...props }) => {
   const [collapseNodes, setCollapseNodes] = React.useState(false);
   const [bipartite, setBipartite] = React.useState(false);
 
-  const [nodeFill, setNodeFill] = React.useState(
-    props.nodeFill || createDefaultState(nodes, hslToHex(0, 35, 15.6))
-  );
+  const nodeFill = props.nodeFill
+  //const [nodeFill, setNodeFill] = React.useState(
+  //  props.nodeFill || createDefaultState(nodes, hslToHex(0, 35, 15.6))
+  //);
   const [selectedNodes, setSelectedNodes] = React.useState(
     props.selectedNodes || {}
   );
@@ -114,7 +115,7 @@ const Widget = ({ nodes, edges, ...props }) => {
     const s = color.s * 100;
     const l = color.l * 100;
     if (datatype === "node") {
-      setNodeFill({ ...nodeFill, [uid]: hslToHex(h, s, l) });
+      //setNodeFill({ ...nodeFill, [uid]: hslToHex(h, s, l) });
     } else {
       setEdgeStroke({ ...edgeStroke, [uid]: hslToHex(h, s, l) });
     }
@@ -543,7 +544,7 @@ const Widget = ({ nodes, edges, ...props }) => {
 
   const handlePaletteChange = (dataType, newPalette) => {
     if (dataType === "node") {
-      setNodeFill(newPalette);
+      //setNodeFill(newPalette);
     } else {
       setEdgeStroke(newPalette);
     }
@@ -553,7 +554,7 @@ const Widget = ({ nodes, edges, ...props }) => {
     const singleColorMap = new Map();
     if (type === "node") {
       Object.keys({ ...nodeFill }).map((d) => singleColorMap.set(d, color));
-      setNodeFill(Object.fromEntries(singleColorMap));
+      //setNodeFill(Object.fromEntries(singleColorMap));
     } else {
       Object.keys({ ...edgeStroke }).map((d) => singleColorMap.set(d, color));
       setEdgeStroke(Object.fromEntries(singleColorMap));
@@ -645,7 +646,7 @@ const Widget = ({ nodes, edges, ...props }) => {
   return (
     <div>
       <Grid container spacing={1}>
-        <Grid item xs={12} sm={4}>
+        <Grid id="accordion" style={{display:"none"}} item xs={12} sm={4}>
           <div className={classes.root}>
             <Accordion
               expanded={openAccordian["node"]}
